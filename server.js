@@ -7,7 +7,7 @@ const port = 3216;
 const app = express();
 
 app.get("/", (req, res) => {
-    res.send(`<h1>LINKS TO APPS</h1><br /><br /><a href="/home">Home Page</a><br /><br /><a href="/greeting/:name">Greeting Page</a><br /><br /><a href="/colors/:indexOfColor">Color Page</a><br /><br /><a href="/hello/:firstname/:lastname">Hello Page</a><br /><br /><a href="/tip/:total/:tipPercentage">Tip Calculator</a><br /><br /><a href="/magic/:question">Magic 8 Ball</a>`);
+    res.send(`<h1>LINKS TO APPS</h1><br /><br /><a href="/home">Home Page</a><br /><br /><a href="/greeting/:name">Greeting Page</a><br /><br /><a href="/colors/:indexOfColor">Color Page</a><br /><br /><a href="/hello/:firstname/:lastname">Hello Page</a><br /><br /><a href="/tip/:total/:tipPercentage">Tip Calculator</a><br /><br /><a href="/magic/:question">Magic 8 Ball</a><br /><br /><a href="/99bottles/:numberOfBottles">99 Bottles</a>`);
 });
 
 app.get("/home", (req, res) => {
@@ -37,6 +37,18 @@ app.get("/tip/:total/:tipPercentage", (req, res) => {
 app.get("/magic/:question", (req, res) => {
     let randomAnswer = Math.floor(Math.random() * answers.length);
     res.send(`<h1>${req.params.question}</h1> <p>${answers[randomAnswer]}</p>`);
+});
+
+app.get("/99bottles/:numberOfBottles", (req, res) => {
+    if(req.params.numberOfBottles > 2) {
+        res.send(`<p>${req.params.numberOfBottles} bottles of beer on the wall. ${req.params.numberOfBottles} bottles of beer...</p><br /><br /><p>Take one down, pass it around...</p><br /><br /><p><a href="${req.params.numberOfBottles - 1}">${req.params.numberOfBottles - 1} bottles</a> of beer on the wall.</p>`);
+    } else if (req.params.numberOfBottles == 2) {
+        res.send(`<p>${req.params.numberOfBottles} bottles of beer on the wall. ${req.params.numberOfBottles} bottles of beer...</p><br /><br /><p>Take one down, pass it around...</p><br /><br /><p><a href="${req.params.numberOfBottles - 1}">${req.params.numberOfBottles - 1} bottle</a> of beer on the wall.</p>`);
+    } else if (req.params.numberOfBottles == 1) {
+        res.send(`<p>1 bottle of beer on the wall. 1 bottle of beer...Take it down, pass it around...No more bottles of beer on the wall.</p><br /><br /><h2>Back to <a href="/">main page</a></h2>`);
+    } else {
+        res.send(`<h1>Back to <a href="/">main page</a></h1>`);
+    }
 });
 
 // app.get("/:test", (req, res) => {
