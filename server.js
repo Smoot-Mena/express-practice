@@ -6,7 +6,7 @@ const port = 3216;
 const app = express();
 
 app.get("/", (req, res) => {
-    res.send(`<h1>Hello Express!</h1>`);
+    res.send(`<h1>LINKS TO APPS</h1><br /><br /><a href="/home">Home Page</a><br /><br /><a href="/greeting/:name">Greeting Page</a><br /><br /><a href="/colors/:indexOfColor">Color Page</a><br /><br /><a href="/hello/:firstname/:lastname">Hello Page</a><br /><br /><a href="/tip/:total/:tipPercentage">Tip Calculator</a>`);
 });
 
 app.get("/home", (req, res) => {
@@ -27,11 +27,15 @@ app.get("/colors/:indexOfColor", (req, res) => {
 
 app.get("/hello/:firstname/:lastname", (req, res) => {
     res.send("hello " + req.params.firstname + " " + req.params.lastname);
-})
-
-app.get("/:test", (req, res) => {
-    res.send(`<p>Test</p>`);
 });
+
+app.get("/tip/:total/:tipPercentage", (req, res) => {
+    res.send(`<h1>Your calculated tip is: $${(req.params.total * req.params.tipPercentage / 100)}</h1>`);
+});
+
+// app.get("/:test", (req, res) => {
+//     res.send(`<p>Test</p>`);
+// });
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
